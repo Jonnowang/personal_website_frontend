@@ -27,12 +27,12 @@ jobs:
         OCI_USERNAME: ${{ secrets.OCI_USERNAME }}
         OCI_API_KEY: ${{ secrets.OCI_API_KEY }}
       run: |
-        echo $OCI_API_KEY | docker login -u $OCI_USERNAME --password-stdin ocir.uk-london-1.oci.oraclecloud.com
+        echo $OCI_API_KEY | docker login -u $OCI_USERNAME --password-stdin lhr.ocir.io
 
     # Build and push arm64 Docker image
     - name: Build and Push arm64 Docker Image
       run: |
         docker buildx build \
           --platform linux/arm64 \
-          --tag ocir.uk-london-1.oci.oraclecloud.com/lrwuubtwxjma/constellation-images/jonno-personal-frontend:latest \
+          --tag lhr.ocir.io/lrwuubtwxjma/constellation-images/jonno-personal-frontend:latest \
           --push .
