@@ -1,5 +1,5 @@
 # Stage 1: Build the dist folder using Node.js
-FROM node:alpine AS builder
+FROM --platform=$BUILDPLATFORM node:alpine AS builder
 
 # Set the working directory in the container
 WORKDIR /app
