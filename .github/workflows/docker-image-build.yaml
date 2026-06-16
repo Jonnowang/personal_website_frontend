@@ -36,3 +36,18 @@ jobs:
           --platform linux/arm64 \
           --tag lhr.ocir.io/lrwuubtwxjma/constellation-images/jonno-personal-frontend:latest \
           --push .
+
+    # Trigger rolling deployment in Kubernetes
+    - name: Trigger Rolling Deployment
+      uses: actions-hub/kubectl@master
+      env:
+        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+      with:
+        args: rollout restart deployment/chore-store -n default
+
+    - name: Wait for Deployment Success
+      uses: actions-hub/kubectl@master
+      env:
+        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+      with:
+        args: rollout status deployment/chore-store -n default --timeout=5m
